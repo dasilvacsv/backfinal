@@ -35,3 +35,5 @@ git checkout master(navigate)
 git checkout -b (branch)@bot.command()
 
 pull request
+
+
