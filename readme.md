@@ -27,4 +27,8 @@ echo ".vscode/" >> .gitignore
 # crear primer commit + add
 git add .
 git commit -m "Configuración inicial del proyecto y .gitignore"
+git remote add (name) (url)
+git push -set-upstream origin master
+git pull
 
+pull request

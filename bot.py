@@ -55,6 +55,6 @@ async def b(ctx, operacion: str, cantidad: int):
     # Formatear el mensaje para enviar
     signo = "+" if operacion == '+' else "-"
     await ctx.send(f'Valor del canal actualizado de {valor_anterior} a {nuevo_valor} ({signo}{abs(cantidad)})')
-    
+    print(signo)
 # Inicia el bot
 bot.run(token)
