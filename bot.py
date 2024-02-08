@@ -55,6 +55,7 @@ async def b(ctx, operacion: str, cantidad: int):
     # Formatear el mensaje para enviar
     signo = "+" if operacion == '+' else "-"
     await ctx.send(f'Valor del canal actualizado de {valor_anterior} a {nuevo_valor} ({signo}{abs(cantidad)})')
+
 @bot.command()  
 async def historial(ctx):
     # Conectarse a la base de datos y recuperar los registros de transacciones
@@ -92,5 +93,35 @@ async def historial(ctx):
 
     # Enviar el mensaje al canal de Discord
     await ctx.send(tabla)
+
+@bot.command()
+async def reiniciar(ctx):
+    channel_id = str(ctx.channel.id)
+
+    async with aiosqlite.connect('usuarios.db') as db:
+        # Obtener el valor actual del canal
+        cursor = await db.execute('SELECT valor FROM canales WHERE id = ?', (channel_id,))
+        row = await cursor.fetchone()
+        valor_anterior = 0 if row is None else row[0]
+
+        # Reiniciar el valor del canal a 0
+        if row:
+            await db.execute('UPDATE canales SET valor = 0 WHERE id = ?', (channel_id,))
+        else:
+            # Si no hay un registro previo, insertar uno con valor 0
+            await db.execute('INSERT INTO canales (id, valor) VALUES (?, 0)', (channel_id,))
+
+        # Registrar la operación de reinicio en transacciones_canales_logs
+        # En este registro, "cantidad" reflejará el valor anterior antes del reinicio
+        await db.execute('''
+            INSERT INTO transacciones_canales_logs (channel_id, operacion, cantidad, valor_anterior, nuevo_valor)
+            VALUES (?, 'reiniciar', ?, ?, 0)
+        ''', (channel_id, valor_anterior, valor_anterior))
+
+        await db.commit()
+
+    # Enviar confirmación al canal
+    await ctx.send(f"El valor del canal ha sido reiniciado de {valor_anterior} a 0 y la acción ha sido registrada.")
+
 # Inicia el bot
 bot.run(token)

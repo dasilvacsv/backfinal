@@ -32,6 +32,6 @@ git push -set-upstream origin master
 git pull
 git push -u origin (loc)
 git checkout master(navigate)
-git checkout -b (branch)
+git checkout -b (branch)@bot.command()
 
 pull request
