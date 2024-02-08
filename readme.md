@@ -30,5 +30,8 @@ git commit -m "Configuración inicial del proyecto y .gitignore"
 git remote add (name) (url)
 git push -set-upstream origin master
 git pull
+git push -u origin (loc)
+git checkout master(navigate)
+git checkout -b (branch)
 
 pull request
