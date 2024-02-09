@@ -36,4 +36,10 @@ git checkout -b (branch)@bot.command()
 
 pull request
 
+# bot1
+un bot que toma el valor con +200, luego va y update la base de datos actualizando de acuerdo a si es suma y resta, con una funcion para reiniciar su valor, y una funcion de historial que muestra el historial en formato ascii
 
+# bo2
+un bot que toma el comando !calcular 100, y ese numero lo multiplica por una variable que se coloca en el canal y queda anclada a este y se puede reemplazar solo utilizando un comando, esto dará un embed, donde se tomará la decision de guardar transaccion o cancelar transaccion, esto con una ruta de base de datos ya predispuesta
+
+propuesta, unificar ambos bot
